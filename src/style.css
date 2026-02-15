@@ -128,7 +128,7 @@ p {
   font-weight: 800;
   font-size: 1.5rem;
   letter-spacing: -0.03em;
-  color: var(--text-primary);
+  color: var(--accent-primary);
   text-decoration: none;
 }
 
@@ -140,7 +140,7 @@ p {
 
 .nav-links a {
   text-decoration: none;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   font-weight: 500;
   font-size: 0.95rem;
   transition: color 0.3s ease;
@@ -148,7 +148,7 @@ p {
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--text-primary);
+  color: var(--accent-primary);
 }
 
 #theme-toggle {
