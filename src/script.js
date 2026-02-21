@@ -344,4 +344,154 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
+  // --- Custom Cursor Logic ---
+  const dot = document.querySelector('.custom-cursor');
+  const follower = document.querySelector('.cursor-follower');
+
+  let cursorX = 0;
+  let cursorY = 0;
+  let dotX = 0;
+  let dotY = 0;
+  let followerX = 0;
+  let followerY = 0;
+
+  window.addEventListener('mousemove', (e) => {
+    cursorX = e.clientX;
+    cursorY = e.clientY;
+  });
+
+  function animateCursor() {
+    // Smooth lerp for dot
+    dotX += (cursorX - dotX) * 0.2;
+    dotY += (cursorY - dotY) * 0.2;
+    dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+
+    // Slower lerp for follower
+    followerX += (cursorX - followerX) * 0.1;
+    followerY += (cursorY - followerY) * 0.1;
+    follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+
+    requestAnimationFrame(animateCursor);
+  }
+  animateCursor();
+
+  // Cursor Hover Effects
+  const interactiveElements = document.querySelectorAll('a, button, .btn, .highlight, .holographic-skill-card, .project-item');
+  interactiveElements.forEach(el => {
+    el.addEventListener('mouseenter', () => follower.classList.add('active'));
+    el.addEventListener('mouseleave', () => follower.classList.remove('active'));
+  });
+
+  // Spotlight Hover Effect (Projects & Holographic Skills)
+  const spotlightCards = document.querySelectorAll('.project-item, .holographic-skill-card, .cert-card');
+  spotlightCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      card.style.setProperty('--mouse-x', `${x}%`);
+      card.style.setProperty('--mouse-y', `${y}%`);
+    });
+  });
+
+  // --- Magnetic Interaction Class ---
+  class Magnetic {
+    constructor(el, strength = 0.3) {
+      this.el = el;
+      this.strength = strength;
+      this.x = 0;
+      this.y = 0;
+      this.init();
+    }
+
+    init() {
+      this.el.addEventListener('mousemove', (e) => this.onMouseMove(e));
+      this.el.addEventListener('mouseleave', () => this.onMouseLeave());
+    }
+
+    onMouseMove(e) {
+      const rect = this.el.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+
+      this.x = (e.clientX - centerX) * this.strength;
+      this.y = (e.clientY - centerY) * this.strength;
+
+      if (this.el.classList.contains('mag-capsule')) {
+        this.el.style.setProperty('--mag-x', `${this.x}px`);
+        this.el.style.setProperty('--mag-y', `${this.y}px`);
+      } else {
+        this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
+      }
+    }
+
+    onMouseLeave() {
+      if (this.el.classList.contains('mag-capsule')) {
+        this.el.style.setProperty('--mag-x', `0px`);
+        this.el.style.setProperty('--mag-y', `0px`);
+      } else {
+        this.el.style.transform = `translate(0px, 0px)`;
+      }
+    }
+  }
+
+  // Initialize Magnetic Elements
+  const magneticEls = document.querySelectorAll('.btn, .logo, .social-links a, .mag-capsule');
+  magneticEls.forEach(el => new Magnetic(el));
+
+  // --- 3D Perspective Effects (About & Skills) ---
+  const perspectiveElements = document.querySelectorAll('.profile-perspective-frame, .holographic-skill-card');
+
+  perspectiveElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const rotateX = (y - centerY) / 10;
+      const rotateY = (centerX - x) / 10;
+
+      el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+  });
+
+  // --- Background Parallax & Scroll Effects ---
+  const bgShapes = document.querySelectorAll('.shape');
+  const titleFills = document.querySelectorAll('.title-fill');
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const winHeight = window.innerHeight;
+
+    // BG Parallax logic
+    bgShapes.forEach((shape, index) => {
+      const speed = (index + 1) * 0.1;
+      shape.style.transform = `translateY(${scrollY * speed}px)`;
+    });
+
+    // Title fill scroll effect
+    titleFills.forEach(fill => {
+      const rect = fill.getBoundingClientRect();
+      if (rect.top < winHeight && rect.bottom > 0) {
+        const progress = 1 - (rect.top / winHeight);
+        const pos = Math.min(Math.max(progress * 100, 0), 100);
+        fill.style.backgroundPosition = `${100 - pos}% 0%`;
+      }
+    });
+
+    // Scroll Progress Bar Logic
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    if (scrollBar) {
+      scrollBar.style.width = scrolled + "%";
+    }
+  });
 });

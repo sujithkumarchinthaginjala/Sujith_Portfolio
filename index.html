@@ -14,6 +14,19 @@
 </head>
 
 <body>
+  <div class="noise-overlay"></div>
+  <div class="bg-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="scroll-progress-container">
+    <div class="scroll-progress-bar" id="scrollBar"></div>
+  </div>
+
+  <div class="custom-cursor"></div>
+  <div class="cursor-follower"></div>
   <div id="app"></div>
   <!-- Maintaining for any potential Vue mounting if needed later, but primary content is static below -->
 
@@ -57,7 +70,7 @@
 
   <header id="hero" class="section hero-section">
     <div class="container fade-in-up">
-      <h1 class="hero-name">Sujith Kumar Chinthaginjala</h1>
+      <h1 class="hero-name"><span class="reveal-text">Sujith Kumar Chinthaginjala</span></h1>
       <h2 class="hero-role">Software Engineer <span class="accent-text">|</span> Full-Stack Developer</h2>
       <p class="hero-tagline">I build scalable, enterprise-grade web applications using Java, Spring Boot, Angular, and
         Vue.js.</p>
@@ -74,25 +87,47 @@
 
   <section id="about" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">About Me</h2>
-      <div class="about-content">
-        <p>I am a <strong>Software Engineer</strong> at INU Technology and Solutions with hands-on experience in
-          building full-stack applications. I work on frontend development using <span class="highlight">Angular</span>
-          and <span class="highlight">Vue.js</span> and backend services using <span class="highlight">Java</span> and
-          <span class="highlight">Spring Boot</span>.
-        </p>
-        <p>I enjoy building clean, scalable systems and continuously improving my technical expertise. My focus is on
-          creating enterprise-grade architectures and delivering seamless user experiences.</p>
+      <h2 class="section-title"><span class="title-fill">About Me</span></h2>
+      <div class="about-editorial-layout">
+        <div class="editorial-narrative">
+          <div class="narrative-header">
+            <span class="editorial-label">Overview</span>
+            <p class="editorial-lead">
+              A <strong>Software Engineer</strong> specializing in technical architecture and premium digital solutions.
+            </p>
+          </div>
+          <div class="narrative-body">
+            <p>
+              Currently at <span class="highlight">INU Technology and Solutions</span>, I bridge the gap between
+              complex enterprise systems and refined user experiences. My approach combines
+              <span class="highlight">Java/Spring Boot</span> robustness with
+              <span class="highlight">Angular/Vue.js</span> fluidity.
+            </p>
+          </div>
+          <div class="narrative-stats">
+            <div class="stat-item">
+              <span class="stat-value">FSD</span>
+              <span class="stat-label">Full Stack</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">SDLC</span>
+              <span class="stat-label">End-to-End</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">OSS</span>
+              <span class="stat-label">Architecture</span>
+            </div>
+          </div>
+        </div>
 
-        <div class="highlights-grid">
-          <div class="highlight-item">
-            <h3>Enterprise App Development</h3>
-          </div>
-          <div class="highlight-item">
-            <h3>Full SDLC Exposure</h3>
-          </div>
-          <div class="highlight-item">
-            <h3>Continuous Learner</h3>
+        <div class="editorial-visual">
+          <div class="profile-perspective-frame mag-capsule">
+            <div class="inner-grid-pattern"></div>
+            <div class="profile-placeholder">
+              <span class="profile-initials">SC</span>
+            </div>
+            <div class="floating-data-tag t-1">Engineer.sys</div>
+            <div class="floating-data-tag t-2">Logic.core</div>
           </div>
         </div>
       </div>
@@ -105,23 +140,99 @@
 
   <section id="skills" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">Skills & Expertise</h2>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <h3>Frontend</h3>
-          <p>HTML, CSS, JavaScript, TypeScript, Angular, Vue.js</p>
+      <h2 class="section-title"><span class="title-fill">Technical Expertise</span></h2>
+
+      <div class="skills-marquee-wrapper">
+        <div class="tech-marquee-container">
+          <div class="tech-marquee">
+            <div class="tech-item"><i class="devicon-java-plain"></i> Java</div>
+            <div class="tech-item"><i class="devicon-spring-plain"></i> Spring Boot</div>
+            <div class="tech-item"><i class="devicon-angularjs-plain"></i> Angular</div>
+            <div class="tech-item"><i class="devicon-vuejs-plain"></i> Vue.js</div>
+            <div class="tech-item"><i class="devicon-typescript-plain"></i> TypeScript</div>
+            <div class="tech-item"><i class="devicon-postgresql-plain"></i> PostgreSQL</div>
+            <div class="tech-item"><i class="devicon-amazonwebservices-original"></i> AWS</div>
+            <div class="tech-item"><i class="devicon-git-plain"></i> Git</div>
+            <div class="tech-item"><i class="devicon-html5-plain"></i> HTML5</div>
+            <div class="tech-item"><i class="devicon-css3-plain"></i> CSS3</div>
+            <!-- Duplicate for loop -->
+            <div class="tech-item"><i class="devicon-java-plain"></i> Java</div>
+            <div class="tech-item"><i class="devicon-spring-plain"></i> Spring Boot</div>
+            <div class="tech-item"><i class="devicon-angularjs-plain"></i> Angular</div>
+            <div class="tech-item"><i class="devicon-vuejs-plain"></i> Vue.js</div>
+            <div class="tech-item"><i class="devicon-typescript-plain"></i> TypeScript</div>
+            <div class="tech-item"><i class="devicon-postgresql-plain"></i> PostgreSQL</div>
+            <div class="tech-item"><i class="devicon-amazonwebservices-original"></i> AWS</div>
+            <div class="tech-item"><i class="devicon-git-plain"></i> Git</div>
+            <div class="tech-item"><i class="devicon-html5-plain"></i> HTML5</div>
+            <div class="tech-item"><i class="devicon-css3-plain"></i> CSS3</div>
+          </div>
         </div>
-        <div class="skill-category">
-          <h3>Backend</h3>
-          <p>Java, Spring Framework, Spring Boot, REST API</p>
+      </div>
+
+      <div class="skills-holographic-grid">
+        <div class="holographic-skill-card" data-category="frontend">
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <div class="skill-icon-wrapper">
+                <i class="devicon-angular-plain colored"></i>
+              </div>
+              <h3>Frontend Architecture</h3>
+              <p>Crafting responsive, high-performance UIs using modern frameworks and standard-compliant web
+                technologies.</p>
+              <div class="tech-tags">
+                <span>Angular</span>
+                <span>Vue.js</span>
+                <span>TypeScript</span>
+                <span>JavaScript</span>
+                <span>HTML5 / CSS3</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="skill-category">
-          <h3>Database & Cloud</h3>
-          <p>SQL, PostgreSQL, AWS (Basic Exposure)</p>
+
+        <div class="holographic-skill-card" data-category="backend">
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <div class="skill-icon-wrapper">
+                <i class="devicon-spring-plain colored"></i>
+              </div>
+              <h3>Backend Engineering</h3>
+              <p>Architecting robust server-side logic and microservices with enterprise-grade Java frameworks.</p>
+              <div class="tech-tags">
+                <span>Java</span>
+                <span>Spring Framework</span>
+                <span>Spring Boot</span>
+                <span>Hibernate</span>
+                <span>REST API</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="skill-category">
-          <h3>Tools</h3>
-          <p>Git, Agile/Scrum, JUnit, VS Code</p>
+
+        <div class="holographic-skill-card" data-category="data-cloud">
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <div class="skill-icon-wrapper">
+                <i class="devicon-postgresql-plain colored"></i>
+              </div>
+              <h3>Database & Cloud</h3>
+              <p>Managing data persistence and exploring scalable cloud infrastructure deployments.</p>
+              <div class="tech-tags">
+                <span>PostgreSQL</span>
+                <span>SQL</span>
+                <span>AWS</span>
+                <span>Git</span>
+                <span>Agile / JUnit</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -133,7 +244,7 @@
 
   <section id="experience" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">Experience</h2>
+      <h2 class="section-title"><span class="title-fill">Experience</span></h2>
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-marker"></div>
@@ -157,42 +268,40 @@
 
   <section id="projects" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">Selected Works</h2>
+      <h2 class="section-title"><span class="title-fill">Selected Works</span></h2>
 
-      <div class="project-item">
-        <h3 class="project-title">Employee Portal Application</h3>
-        <p class="project-desc">A comprehensive management system handling complex organizational workflows including
-          leave management, payroll processing, and role-based access control. Built with a microservices architecture
-          in mind.</p>
-        <p class="project-tech">Angular • Vue.js • Spring Boot • Java</p>
-        <div class="project-links" style="margin-top: 2rem;">
-          <a href="#" class="link-underline">View Code</a>
+      <div class="projects-grid">
+        <div class="project-item">
+          <h3 class="project-title">Employee Portal Application</h3>
+          <p class="project-desc">A comprehensive management system handling complex organizational workflows including
+            leave management, payroll processing, and role-based access control. Built with a microservices architecture
+            in mind.</p>
+          <p class="project-tech">Angular • Vue.js • Spring Boot • Java</p>
+          <div class="project-links" style="margin-top: 2rem;">
+            <a href="#" class="link-underline">View Code</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-divider"></div>
-
-      <div class="project-item">
-        <h3 class="project-title">Landing Page Website</h3>
-        <p class="project-desc">A high-performance promotional landing page designed for conversion and brand
-          storytelling. Implemented with modern CSS features and Vue 3 composition API.</p>
-        <p class="project-tech">Vue 3 • SCSS • Vite</p>
-        <div class="project-links" style="margin-top: 2rem;">
-          <a href="https://sujithkumarchinthaginjala.github.io/Landing_Page/" target="_blank"
-            class="link-underline">Live
-            Demo</a>
+        <div class="project-item">
+          <h3 class="project-title">Landing Page Website</h3>
+          <p class="project-desc">A high-performance promotional landing page designed for conversion and brand
+            storytelling. Implemented with modern CSS features and Vue 3 composition API.</p>
+          <p class="project-tech">Vue 3 • SCSS • Vite</p>
+          <div class="project-links" style="margin-top: 2rem;">
+            <a href="https://sujithkumarchinthaginjala.github.io/Landing_Page/" target="_blank"
+              class="link-underline">Live
+              Demo</a>
+          </div>
         </div>
-      </div>
 
-      <div class="project-divider"></div>
-
-      <div class="project-item">
-        <h3 class="project-title">Face Mask Recognition System</h3>
-        <p class="project-desc">Computer vision solution utilizing deep learning to detect face mask compliance in
-          real-time video feeds. Optimized for edge deployment.</p>
-        <p class="project-tech">Python • TensorFlow • OpenCV</p>
-        <div class="project-links" style="margin-top: 2rem;">
-          <a href="#" class="link-underline">View Project</a>
+        <div class="project-item">
+          <h3 class="project-title">Face Mask Recognition System</h3>
+          <p class="project-desc">Computer vision solution utilizing deep learning to detect face mask compliance in
+            real-time video feeds. Optimized for edge deployment.</p>
+          <p class="project-tech">Python • TensorFlow • OpenCV</p>
+          <div class="project-links" style="margin-top: 2rem;">
+            <a href="#" class="link-underline">View Project</a>
+          </div>
         </div>
       </div>
 
@@ -205,13 +314,37 @@
 
   <section id="certifications" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">Certifications</h2>
-      <ul class="cert-list">
-        <li>Artificial Intelligence with Python – Coincent</li>
-        <li>Java Spring Framework 6 & Spring Boot 3 – Udemy Business</li>
-        <li>Vue 3 Bootcamp – Udemy Business</li>
-        <li>Spring Boot Unit Testing with JUnit, Mockito, and MockMvc</li>
-      </ul>
+      <h2 class="section-title"><span class="title-fill">Certifications</span></h2>
+      <div class="cert-grid">
+        <div class="cert-card">
+          <div class="cert-icon"><i class="devicon-python-plain"></i></div>
+          <div class="cert-info">
+            <h3>AI with Python</h3>
+            <p>Coincent</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="devicon-spring-plain"></i></div>
+          <div class="cert-info">
+            <h3>Spring & Spring Boot 3</h3>
+            <p>Udemy Business</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="devicon-vuejs-plain"></i></div>
+          <div class="cert-info">
+            <h3>Vue 3 Bootcamp</h3>
+            <p>Udemy Business</p>
+          </div>
+        </div>
+        <div class="cert-card">
+          <div class="cert-icon"><i class="devicon-java-plain"></i></div>
+          <div class="cert-info">
+            <h3>Unit Testing with JUnit, Mockito, MockMvc</h3>
+            <p>Udemy Business</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -221,14 +354,31 @@
 
   <section id="contact" class="section">
     <div class="container fade-in-on-scroll">
-      <h2 class="section-title">Get In Touch</h2>
-      <p>Interested in working together? Feel free to reach out.</p>
-      <p style="margin-bottom: 2rem;">Based in Hyderabad, India • +91 6302487572</p>
-      <div class="social-links">
-        <a href="https://linkedin.com/in/sujithkumarchinthaginjala" target="_blank"
-          class="btn btn-secondary contact-btn" aria-label="LinkedIn">LinkedIn</a>
-        <a href="mailto:chinthaginjalasujithkumar@gmail.com" class="btn btn-secondary contact-btn"
-          aria-label="Email">Email</a>
+      <h2 class="section-title"><span class="title-fill">Get In Touch</span></h2>
+      <div class="contact-container">
+        <form class="contact-form">
+          <div class="form-group">
+            <input type="text" placeholder="Your Name" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="Your Email" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Message" rows="5" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+
+        <div class="contact-info">
+          <p>Interested in working together? Feel free to reach out.</p>
+          <p style="margin-bottom: 2rem;">Based in Hyderabad, India • +91 6302487572</p>
+          <div class="social-links">
+            <a href="https://linkedin.com/in/sujithkumarchinthaginjala" target="_blank"
+              class="btn btn-secondary contact-btn" aria-label="LinkedIn">LinkedIn</a>
+            <a href="mailto:chinthaginjalasujithkumar@gmail.com" class="btn btn-secondary contact-btn"
+              aria-label="Email">Email</a>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -236,6 +386,18 @@
   <div class="section-separator">
     <div class="separator-line"></div>
   </div>
+
+  <section class="section quote-section">
+    <div class="container">
+      <div class="quote-card">
+        <div class="quote-content">
+          <p class="quote-text">"The best way to predict the future is to invent it."</p>
+          <p class="quote-author">— Alan Kay</p>
+        </div>
+        <div class="quote-glow"></div>
+      </div>
+    </div>
+  </section>
 
   <footer class="section footer">
     <div class="container">
