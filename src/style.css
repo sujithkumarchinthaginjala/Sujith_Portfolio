@@ -213,7 +213,40 @@ p {
 
 .hero-name {
   margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
+
+.hero-name .char {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hero-name .char.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background-color: var(--accent-primary);
+  margin-left: 4px;
+  opacity: 1;
+  animation: blink-smooth 1s steps(2, start) infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink-smooth {
+  to {
+    visibility: hidden;
+  }
+}
+
 
 .hero-role {
   font-size: 1.5rem;

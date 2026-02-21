@@ -190,9 +190,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // --- Refined Typing Effect ---
+  function initTypingEffect() {
+    const nameElement = document.querySelector('.hero-name');
+    if (!nameElement) return;
+
+    const fullText = nameElement.textContent;
+    nameElement.textContent = ''; // Clear to rebuild with spans
+
+    // Pre-create all characters as spans with opacity 0 to reserve space
+    const chars = fullText.split('').map(char => {
+      const span = document.createElement('span');
+      span.className = 'char';
+      span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for layout
+      nameElement.appendChild(span);
+      return span;
+    });
+
+    // Add Cursor
+    const cursor = document.createElement('span');
+    cursor.className = 'typing-cursor';
+    nameElement.prepend(cursor); // Start at the beginning
+
+    let charIndex = 0;
+    let lastTime = 0;
+    let typingSpeed = 70; // Base speed ms
+
+    function type(timeStamp) {
+      if (!lastTime) lastTime = timeStamp;
+      const elapsed = timeStamp - lastTime;
+
+      if (elapsed >= typingSpeed) {
+        if (charIndex < chars.length) {
+          chars[charIndex].classList.add('revealed');
+          chars[charIndex].after(cursor); // Move cursor after the revealed char
+
+          // Human-like rhythm variation
+          const char = fullText[charIndex];
+          if (char === ' ') {
+            typingSpeed = 160 + Math.random() * 100; // Pause at spaces
+          } else if (charIndex === fullText.length - 1) {
+            typingSpeed = 1000; // Final pause
+          } else {
+            typingSpeed = 40 + Math.random() * 60; // Normal variation
+          }
+
+          charIndex++;
+          lastTime = timeStamp;
+          requestAnimationFrame(type);
+        }
+      } else {
+        requestAnimationFrame(type);
+      }
+    }
+
+    // Initial delay before typing starts
+    setTimeout(() => {
+      requestAnimationFrame(type);
+    }, 800);
+  }
+
   resize();
   initSnow();
   animate();
+  initTypingEffect();
 
   // --- Scroll Animations (Intersection Observer) ---
   const observerOptions = {
@@ -263,4 +324,5 @@ document.addEventListener('DOMContentLoaded', () => {
       navMenu.classList.remove("active");
     }));
   }
+
 });
