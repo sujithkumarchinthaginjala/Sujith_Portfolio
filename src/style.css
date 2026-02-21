@@ -177,6 +177,8 @@ html {
   scroll-behavior: smooth;
   overflow-x: hidden;
   width: 100%;
+  /* Offset for fixed navbar so section headings don't go beneath it */
+  scroll-padding-top: 90px;
 }
 
 body {
@@ -503,6 +505,8 @@ p {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* Offset scroll target so section title clears the fixed navbar */
+  scroll-margin-top: 90px;
 }
 
 .container {
@@ -1659,6 +1663,7 @@ p {
 
   .section {
     padding: 4rem 1.2rem;
+    scroll-margin-top: 60px;
   }
 
   .section-title {
@@ -1719,6 +1724,14 @@ p {
 
   .hero-name {
     font-size: 3.8rem;
+  }
+
+  .section {
+    scroll-margin-top: 5px;
+  }
+
+  html {
+    scroll-padding-top: 85px;
   }
 
   /* About section: visual moves below the narrative on tablet too */
