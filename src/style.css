@@ -213,9 +213,15 @@ p {
 
 .hero-name {
   margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
+  display: block;
+  /* Allow natural wrapping */
+  line-height: 1.2;
+}
+
+.word-wrapper {
+  display: inline-block;
+  /* Keep words together */
+  white-space: nowrap;
 }
 
 .hero-name .char {
@@ -232,9 +238,9 @@ p {
 
 .typing-cursor {
   display: inline-block;
-  width: 2px;
+  width: 5px;
   height: 1.1em;
-  background-color: var(--accent-primary);
+  background-color: var(--accent-secondary);
   margin-left: 4px;
   opacity: 1;
   animation: blink-smooth 1s steps(2, start) infinite;

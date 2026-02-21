@@ -196,15 +196,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!nameElement) return;
 
     const fullText = nameElement.textContent;
-    nameElement.textContent = ''; // Clear to rebuild with spans
+    nameElement.textContent = ''; // Clear to rebuild
 
-    // Pre-create all characters as spans with opacity 0 to reserve space
-    const chars = fullText.split('').map(char => {
-      const span = document.createElement('span');
-      span.className = 'char';
-      span.textContent = char === ' ' ? '\u00A0' : char; // Use non-breaking space for layout
-      nameElement.appendChild(span);
-      return span;
+    let chars = [];
+    const words = fullText.split(' ');
+
+    words.forEach((word, wordIdx) => {
+      const wordSpan = document.createElement('span');
+      wordSpan.className = 'word-wrapper';
+
+      const wordChars = word.split('').map(char => {
+        const span = document.createElement('span');
+        span.className = 'char';
+        span.textContent = char;
+        wordSpan.appendChild(span);
+        return span;
+      });
+
+      chars = [...chars, ...wordChars];
+      nameElement.appendChild(wordSpan);
+
+      // Add a non-breaking space after each word except the last
+      if (wordIdx < words.length - 1) {
+        const space = document.createElement('span');
+        space.className = 'char';
+        space.textContent = '\u00A0';
+        nameElement.appendChild(space);
+        chars.push(space);
+      }
     });
 
     // Add Cursor
@@ -226,10 +245,10 @@ document.addEventListener('DOMContentLoaded', () => {
           chars[charIndex].after(cursor); // Move cursor after the revealed char
 
           // Human-like rhythm variation
-          const char = fullText[charIndex];
-          if (char === ' ') {
+          const char = chars[charIndex].textContent;
+          if (char === '\u00A0') {
             typingSpeed = 160 + Math.random() * 100; // Pause at spaces
-          } else if (charIndex === fullText.length - 1) {
+          } else if (charIndex === chars.length - 1) {
             typingSpeed = 1000; // Final pause
           } else {
             typingSpeed = 40 + Math.random() * 60; // Normal variation
