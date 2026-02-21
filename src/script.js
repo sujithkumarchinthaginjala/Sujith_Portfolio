@@ -346,18 +346,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Mobile Menu Toggle ---
   const hamburger = document.querySelector(".hamburger");
   const navMenu = document.querySelector(".nav-links");
+  const navOverlay = document.querySelector(".nav-overlay");
+
+  function closeMenu() {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+    if (navOverlay) navOverlay.classList.remove("active");
+  }
 
   if (hamburger && navMenu) {
     hamburger.addEventListener("click", () => {
-      hamburger.classList.toggle("active");
-      navMenu.classList.toggle("active");
+      const isOpen = navMenu.classList.contains("active");
+      if (isOpen) {
+        closeMenu();
+      } else {
+        hamburger.classList.add("active");
+        navMenu.classList.add("active");
+        if (navOverlay) navOverlay.classList.add("active");
+      }
     });
 
-    document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", () => {
-      hamburger.classList.remove("active");
-      navMenu.classList.remove("active");
-    }));
+    document.querySelectorAll(".nav-links a").forEach(n => n.addEventListener("click", closeMenu));
+    if (navOverlay) navOverlay.addEventListener("click", closeMenu);
   }
+
 
   // --- Custom Cursor Logic ---
   const dot = document.querySelector('.custom-cursor');
