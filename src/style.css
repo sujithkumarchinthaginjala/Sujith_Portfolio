@@ -240,7 +240,7 @@ p {
   display: inline-block;
   width: 5px;
   height: 1.1em;
-  background-color: var(--accent-secondary);
+  background-color: var(--accent-primary);
   margin-left: 4px;
   opacity: 1;
   animation: blink-smooth 1s steps(2, start) infinite;
