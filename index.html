@@ -47,24 +47,45 @@
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-      <button id="theme-toggle" aria-label="Toggle Dark Mode">
-        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="5"></circle>
-          <line x1="12" y1="1" x2="12" y2="3"></line>
-          <line x1="12" y1="21" x2="12" y2="23"></line>
-          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-          <line x1="1" y1="12" x2="3" y2="12"></line>
-          <line x1="21" y1="12" x2="23" y2="12"></line>
-          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-        </svg>
-        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-      </button>
+      <div class="theme-switcher">
+        <button id="theme-menu-btn" aria-label="Open Theme Menu" title="Switch Theme">
+          <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="4"></circle>
+            <line x1="12" y1="2" x2="12" y2="4"></line>
+            <line x1="12" y1="20" x2="12" y2="22"></line>
+            <line x1="2" y1="12" x2="4" y2="12"></line>
+            <line x1="20" y1="12" x2="22" y2="12"></line>
+            <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+            <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+            <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+            <line x1="17.66" y1="4.93" x2="19.07" y2="6.34"></line>
+          </svg>
+        </button>
+        <div class="theme-menu">
+          <button class="theme-option obsidian active" data-theme="obsidian" title="Obsidian (Violet)">
+            <span class="color-preview"></span>
+            <span class="theme-name">Obsidian</span>
+          </button>
+          <button class="theme-option midnight" data-theme="midnight" title="Midnight (Cobalt)">
+            <span class="color-preview"></span>
+            <span class="theme-name">Midnight</span>
+          </button>
+          <button class="theme-option emerald" data-theme="emerald" title="Emerald (Cyber)">
+            <span class="color-preview"></span>
+            <span class="theme-name">Emerald</span>
+          </button>
+          <button class="theme-option rose" data-theme="rose" title="Rose (Nebula)">
+            <span class="color-preview"></span>
+            <span class="theme-name">Rose</span>
+          </button>
+          <button class="theme-option amber" data-theme="amber" title="Amber (Molecular)">
+            <span class="color-preview"></span>
+            <span class="theme-name">Amber</span>
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
 
@@ -121,13 +142,47 @@
         </div>
 
         <div class="editorial-visual">
-          <div class="profile-perspective-frame mag-capsule">
-            <div class="inner-grid-pattern"></div>
-            <div class="profile-placeholder">
-              <span class="profile-initials">SC</span>
+          <div class="holographic-highlights-grid">
+            <div class="holographic-card highlight-card" data-tilt>
+              <div class="card-scanner"></div>
+              <div class="card-inner">
+                <div class="card-pattern"></div>
+                <div class="card-content">
+                  <span class="highlight-stat">5+</span>
+                  <span class="highlight-label">Years of Java</span>
+                </div>
+              </div>
             </div>
-            <div class="floating-data-tag t-1">Engineer.sys</div>
-            <div class="floating-data-tag t-2">Logic.core</div>
+            <div class="holographic-card highlight-card" data-tilt>
+              <div class="card-scanner"></div>
+              <div class="card-inner">
+                <div class="card-pattern"></div>
+                <div class="card-content">
+                  <span class="highlight-stat">FSD</span>
+                  <span class="highlight-label">Mastery</span>
+                </div>
+              </div>
+            </div>
+            <div class="holographic-card highlight-card" data-tilt>
+              <div class="card-scanner"></div>
+              <div class="card-inner">
+                <div class="card-pattern"></div>
+                <div class="card-content">
+                  <span class="highlight-stat">E2E</span>
+                  <span class="highlight-label">SDLC Expert</span>
+                </div>
+              </div>
+            </div>
+            <div class="holographic-card highlight-card" data-tilt>
+              <div class="card-scanner"></div>
+              <div class="card-inner">
+                <div class="card-pattern"></div>
+                <div class="card-content">
+                  <span class="highlight-stat">Agile</span>
+                  <span class="highlight-label">Mindset</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -171,7 +226,7 @@
       </div>
 
       <div class="skills-holographic-grid">
-        <div class="holographic-skill-card" data-category="frontend">
+        <div class="holographic-card skill-card" data-category="frontend" data-tilt>
           <div class="card-scanner"></div>
           <div class="card-inner">
             <div class="card-pattern"></div>
@@ -187,13 +242,12 @@
                 <span>Vue.js</span>
                 <span>TypeScript</span>
                 <span>JavaScript</span>
-                <span>HTML5 / CSS3</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="holographic-skill-card" data-category="backend">
+        <div class="holographic-card skill-card" data-category="backend" data-tilt>
           <div class="card-scanner"></div>
           <div class="card-inner">
             <div class="card-pattern"></div>
@@ -205,7 +259,6 @@
               <p>Architecting robust server-side logic and microservices with enterprise-grade Java frameworks.</p>
               <div class="tech-tags">
                 <span>Java</span>
-                <span>Spring Framework</span>
                 <span>Spring Boot</span>
                 <span>Hibernate</span>
                 <span>REST API</span>
@@ -214,7 +267,7 @@
           </div>
         </div>
 
-        <div class="holographic-skill-card" data-category="data-cloud">
+        <div class="holographic-card skill-card" data-category="data-cloud" data-tilt>
           <div class="card-scanner"></div>
           <div class="card-inner">
             <div class="card-pattern"></div>
@@ -229,7 +282,6 @@
                 <span>SQL</span>
                 <span>AWS</span>
                 <span>Git</span>
-                <span>Agile / JUnit</span>
               </div>
             </div>
           </div>
@@ -248,14 +300,20 @@
       <div class="timeline">
         <div class="timeline-item">
           <div class="timeline-marker"></div>
-          <div class="timeline-content">
-            <h3 class="role">Software Engineer</h3>
-            <span class="company">INU Technology and Solutions</span>
-            <span class="date">Dec 2024 – Present</span>
-            <p>Leading frontend development using Angular and Vue.js while building robust backend services with Spring
-              Boot. Focused on creating scalable, enterprise-grade architectures and mentoring junior developers in
-              Agile
-              best practices.</p>
+          <div class="holographic-card experience-card" data-tilt>
+            <div class="card-scanner"></div>
+            <div class="card-inner">
+              <div class="card-pattern"></div>
+              <div class="card-content experience-content">
+                <h3 class="role">Software Engineer</h3>
+                <span class="company">INU Technology and Solutions</span>
+                <span class="date">Dec 2024 – Present</span>
+                <p>Leading frontend development using Angular and Vue.js while building robust backend services with
+                  Spring
+                  Boot. Focused on creating scalable, enterprise-grade architectures and mentoring junior developers in
+                  Agile best practices.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -271,36 +329,53 @@
       <h2 class="section-title"><span class="title-fill">Selected Works</span></h2>
 
       <div class="projects-grid">
-        <div class="project-item">
-          <h3 class="project-title">Employee Portal Application</h3>
-          <p class="project-desc">A comprehensive management system handling complex organizational workflows including
-            leave management, payroll processing, and role-based access control. Built with a microservices architecture
-            in mind.</p>
-          <p class="project-tech">Angular • Vue.js • Spring Boot • Java</p>
-          <div class="project-links" style="margin-top: 2rem;">
-            <a href="#" class="link-underline">View Code</a>
+        <div class="holographic-card project-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <h3 class="project-title">Employee Portal Application</h3>
+              <p class="project-desc">A comprehensive management system handling complex organizational workflows
+                including
+                leave management, payroll processing, and role-based access control.</p>
+              <p class="project-tech">Angular • Vue.js • Spring Boot • Java</p>
+              <div class="project-links">
+                <a href="#" class="link-underline">View Code</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="project-item">
-          <h3 class="project-title">Landing Page Website</h3>
-          <p class="project-desc">A high-performance promotional landing page designed for conversion and brand
-            storytelling. Implemented with modern CSS features and Vue 3 composition API.</p>
-          <p class="project-tech">Vue 3 • SCSS • Vite</p>
-          <div class="project-links" style="margin-top: 2rem;">
-            <a href="https://sujithkumarchinthaginjala.github.io/Landing_Page/" target="_blank"
-              class="link-underline">Live
-              Demo</a>
+        <div class="holographic-card project-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <h3 class="project-title">Landing Page Website</h3>
+              <p class="project-desc">A high-performance promotional landing page designed for conversion and brand
+                storytelling. Implemented with modern CSS features and Vue 3.</p>
+              <p class="project-tech">Vue 3 • SCSS • Vite</p>
+              <div class="project-links">
+                <a href="https://sujithkumarchinthaginjala.github.io/Landing_Page/" target="_blank"
+                  class="link-underline">Live Demo</a>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="project-item">
-          <h3 class="project-title">Face Mask Recognition System</h3>
-          <p class="project-desc">Computer vision solution utilizing deep learning to detect face mask compliance in
-            real-time video feeds. Optimized for edge deployment.</p>
-          <p class="project-tech">Python • TensorFlow • OpenCV</p>
-          <div class="project-links" style="margin-top: 2rem;">
-            <a href="#" class="link-underline">View Project</a>
+        <div class="holographic-card project-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content">
+              <h3 class="project-title">Face Mask Recognition</h3>
+              <p class="project-desc">Computer vision solution utilizing deep learning to detect face mask compliance in
+                real-time video feeds. Optimized for edge deployment.</p>
+              <p class="project-tech">Python • TensorFlow • OpenCV</p>
+              <div class="project-links">
+                <a href="#" class="link-underline">View Project</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -315,33 +390,60 @@
   <section id="certifications" class="section">
     <div class="container fade-in-on-scroll">
       <h2 class="section-title"><span class="title-fill">Certifications</span></h2>
-      <div class="cert-grid">
-        <div class="cert-card">
-          <div class="cert-icon"><i class="devicon-python-plain"></i></div>
-          <div class="cert-info">
-            <h3>AI with Python</h3>
-            <p>Coincent</p>
+      <div class="skills-holographic-grid">
+        <div class="holographic-card cert-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content cert-holographic-content">
+              <div class="skill-icon-wrapper cert-icon-hologram">
+                <i class="devicon-python-plain colored"></i>
+              </div>
+              <h3>AI with Python</h3>
+              <p class="cert-org">Coincent</p>
+            </div>
           </div>
         </div>
-        <div class="cert-card">
-          <div class="cert-icon"><i class="devicon-spring-plain"></i></div>
-          <div class="cert-info">
-            <h3>Spring & Spring Boot 3</h3>
-            <p>Udemy Business</p>
+
+        <div class="holographic-card cert-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content cert-holographic-content">
+              <div class="skill-icon-wrapper cert-icon-hologram">
+                <i class="devicon-spring-plain colored"></i>
+              </div>
+              <h3>Spring & Spring Boot 3</h3>
+              <p class="cert-org">Udemy Business</p>
+            </div>
           </div>
         </div>
-        <div class="cert-card">
-          <div class="cert-icon"><i class="devicon-vuejs-plain"></i></div>
-          <div class="cert-info">
-            <h3>Vue 3 Bootcamp</h3>
-            <p>Udemy Business</p>
+
+        <div class="holographic-card cert-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content cert-holographic-content">
+              <div class="skill-icon-wrapper cert-icon-hologram">
+                <i class="devicon-vuejs-plain colored"></i>
+              </div>
+              <h3>Vue 3 Bootcamp</h3>
+              <p class="cert-org">Udemy Business</p>
+            </div>
           </div>
         </div>
-        <div class="cert-card">
-          <div class="cert-icon"><i class="devicon-java-plain"></i></div>
-          <div class="cert-info">
-            <h3>Unit Testing with JUnit, Mockito, MockMvc</h3>
-            <p>Udemy Business</p>
+
+        <div class="holographic-card cert-card" data-tilt>
+          <div class="card-scanner"></div>
+          <div class="card-inner">
+            <div class="card-pattern"></div>
+            <div class="card-content cert-holographic-content">
+              <div class="skill-icon-wrapper cert-icon-hologram">
+                <i class="devicon-java-plain colored"></i>
+              </div>
+              <h3>Unit Testing with JUnit</h3>
+              <p class="cert-org">Udemy Business</p>
+            </div>
           </div>
         </div>
       </div>

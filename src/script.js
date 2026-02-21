@@ -1,58 +1,79 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-  // --- Theme Toggle ---
-  const themeToggleIdx = document.getElementById('theme-toggle');
+  // --- State & Constants ---
   const body = document.body;
-
-  // Check local storage or system preference
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  if (savedTheme === 'light' || (!savedTheme && !prefersDark)) {
-    body.setAttribute('data-theme', 'light');
-  } else {
-    body.removeAttribute('data-theme'); // Default is dark
-  }
-
-  // --- Particle Systems ---
+  const themeSwitcher = document.querySelector('.theme-switcher');
+  const themeMenuBtn = document.getElementById('theme-menu-btn');
+  const themeOptions = document.querySelectorAll('.theme-option');
   const canvas = document.getElementById('particles-canvas');
   const ctx = canvas.getContext('2d');
+  const scrollBar = document.querySelector('.scroll-progress-bar');
 
   let width, height;
   let snowParticles = [];
   let waveParticles = [];
-
-  // Mouse State
   let mouse = { x: -1000, y: -1000 };
   let lastMouse = { x: -1000, y: -1000 };
+  let particleColor = 'rgba(139, 92, 246, 0.6)'; // Default
 
-  // Theme-based colors
-  let particleColor = 'rgba(255, 255, 255, 0.15)'; // Dark mode default
+  const themeColors = {
+    obsidian: 'rgba(139, 92, 246, 0.6)',
+    midnight: 'rgba(59, 130, 246, 0.6)',
+    emerald: 'rgba(16, 185, 129, 0.6)',
+    rose: 'rgba(244, 63, 120, 0.6)',
+    amber: 'rgba(245, 158, 11, 0.6)'
+  };
 
-  function updateParticlesTheme() {
-    const isLight = body.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      particleColor = 'rgba(0, 0, 0, 0.4)'; // Increased visibility for light mode
-    } else {
-      particleColor = 'rgba(139, 92, 246, 0.6)'; // Increased visibility for dark mode
-    }
+  // --- Multi-Theme Engine ---
+  function updateParticlesTheme(themeName) {
+    particleColor = themeColors[themeName] || themeColors.obsidian;
   }
 
-  themeToggleIdx.addEventListener('click', () => {
-    const isLight = body.getAttribute('data-theme') === 'light';
-    if (isLight) {
-      body.removeAttribute('data-theme');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      body.setAttribute('data-theme', 'light');
-      localStorage.setItem('theme', 'light');
-    }
-    updateParticlesTheme();
+  function setTheme(themeName) {
+    // Reset active state on buttons
+    themeOptions.forEach(opt => opt.classList.remove('active'));
+
+    // Apply theme attribute
+    body.setAttribute('data-theme', themeName);
+
+    // Find and activate the correct menu option
+    const activeOption = document.querySelector(`.theme-option.${themeName}`);
+    if (activeOption) activeOption.classList.add('active');
+
+    // Persist
+    localStorage.setItem('portfolio-theme', themeName);
+
+    // Update visuals
+    updateParticlesTheme(themeName);
+  }
+
+  // Initial Theme Load
+  const savedTheme = localStorage.getItem('portfolio-theme') || 'obsidian';
+  setTheme(savedTheme);
+
+  // Toggle Menu Visibility
+  if (themeMenuBtn) {
+    themeMenuBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      themeSwitcher.classList.toggle('active');
+    });
+  }
+
+  // Handle Theme Selection
+  themeOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const theme = option.getAttribute('data-theme');
+      setTheme(theme);
+      if (themeSwitcher) themeSwitcher.classList.remove('active');
+    });
   });
 
-  // Initial setup
-  updateParticlesTheme();
+  // Global Click to Close Menu
+  document.addEventListener('click', () => {
+    if (themeSwitcher) themeSwitcher.classList.remove('active');
+  });
 
+  // --- Particle Systems Logic ---
   function resize() {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
@@ -125,8 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     draw() {
-      // Use theme color but maybe brighter or distinct?
-      // For now use same color
       ctx.fillStyle = particleColor;
       ctx.globalAlpha = this.opacity * 0.6; // Slightly more transparent trail
       ctx.beginPath();
@@ -181,7 +200,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Only spawn if moved enough to avoid clumping
     if (dist > 5) {
-      // Spawn a few particles
       for (let i = 0; i < 3; i++) {
         waveParticles.push(new WaveParticle(e.clientX, e.clientY));
       }
@@ -216,7 +234,6 @@ document.addEventListener('DOMContentLoaded', () => {
       chars = [...chars, ...wordChars];
       nameElement.appendChild(wordSpan);
 
-      // Add a non-breaking space after each word except the last
       if (wordIdx < words.length - 1) {
         const space = document.createElement('span');
         space.className = 'char';
@@ -229,11 +246,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Add Cursor
     const cursor = document.createElement('span');
     cursor.className = 'typing-cursor';
-    nameElement.prepend(cursor); // Start at the beginning
+    nameElement.prepend(cursor);
 
     let charIndex = 0;
     let lastTime = 0;
-    let typingSpeed = 70; // Base speed ms
+    let typingSpeed = 70;
 
     function type(timeStamp) {
       if (!lastTime) lastTime = timeStamp;
@@ -242,16 +259,15 @@ document.addEventListener('DOMContentLoaded', () => {
       if (elapsed >= typingSpeed) {
         if (charIndex < chars.length) {
           chars[charIndex].classList.add('revealed');
-          chars[charIndex].after(cursor); // Move cursor after the revealed char
+          chars[charIndex].after(cursor);
 
-          // Human-like rhythm variation
           const char = chars[charIndex].textContent;
           if (char === '\u00A0') {
-            typingSpeed = 160 + Math.random() * 100; // Pause at spaces
+            typingSpeed = 160 + Math.random() * 100;
           } else if (charIndex === chars.length - 1) {
-            typingSpeed = 1000; // Final pause
+            typingSpeed = 1000;
           } else {
-            typingSpeed = 40 + Math.random() * 60; // Normal variation
+            typingSpeed = 40 + Math.random() * 60;
           }
 
           charIndex++;
@@ -263,7 +279,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    // Initial delay before typing starts
     setTimeout(() => {
       requestAnimationFrame(type);
     }, 800);
@@ -293,11 +308,11 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // Expand separators
   const separatorObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.querySelector('.separator-line').classList.add('expand');
+        const line = entry.target.querySelector('.separator-line');
+        if (line) line.classList.add('expand');
       }
     });
   }, { threshold: 0.5 });
@@ -348,12 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const dot = document.querySelector('.custom-cursor');
   const follower = document.querySelector('.cursor-follower');
 
-  let cursorX = 0;
-  let cursorY = 0;
-  let dotX = 0;
-  let dotY = 0;
-  let followerX = 0;
-  let followerY = 0;
+  let cursorX = 0, cursorY = 0, dotX = 0, dotY = 0, followerX = 0, followerY = 0;
 
   window.addEventListener('mousemove', (e) => {
     cursorX = e.clientX;
@@ -361,29 +371,25 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   function animateCursor() {
-    // Smooth lerp for dot
     dotX += (cursorX - dotX) * 0.2;
     dotY += (cursorY - dotY) * 0.2;
-    dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
+    if (dot) dot.style.transform = `translate(${dotX}px, ${dotY}px)`;
 
-    // Slower lerp for follower
     followerX += (cursorX - followerX) * 0.1;
     followerY += (cursorY - followerY) * 0.1;
-    follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
+    if (follower) follower.style.transform = `translate(${followerX}px, ${followerY}px)`;
 
     requestAnimationFrame(animateCursor);
   }
   animateCursor();
 
-  // Cursor Hover Effects
-  const interactiveElements = document.querySelectorAll('a, button, .btn, .highlight, .holographic-skill-card, .project-item');
+  const interactiveElements = document.querySelectorAll('a, button, .btn, .highlight, .holographic-card, .project-item');
   interactiveElements.forEach(el => {
-    el.addEventListener('mouseenter', () => follower.classList.add('active'));
-    el.addEventListener('mouseleave', () => follower.classList.remove('active'));
+    el.addEventListener('mouseenter', () => { if (follower) follower.classList.add('active'); });
+    el.addEventListener('mouseleave', () => { if (follower) follower.classList.remove('active'); });
   });
 
-  // Spotlight Hover Effect (Projects & Holographic Skills)
-  const spotlightCards = document.querySelectorAll('.project-item, .holographic-skill-card, .cert-card');
+  const spotlightCards = document.querySelectorAll('.holographic-card, .cert-card');
   spotlightCards.forEach(card => {
     card.addEventListener('mousemove', (e) => {
       const rect = card.getBoundingClientRect();
@@ -394,7 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // --- Magnetic Interaction Class ---
+  // --- Magnetic Interaction ---
   class Magnetic {
     constructor(el, strength = 0.3) {
       this.el = el;
@@ -403,20 +409,16 @@ document.addEventListener('DOMContentLoaded', () => {
       this.y = 0;
       this.init();
     }
-
     init() {
       this.el.addEventListener('mousemove', (e) => this.onMouseMove(e));
       this.el.addEventListener('mouseleave', () => this.onMouseLeave());
     }
-
     onMouseMove(e) {
       const rect = this.el.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
-
       this.x = (e.clientX - centerX) * this.strength;
       this.y = (e.clientY - centerY) * this.strength;
-
       if (this.el.classList.contains('mag-capsule')) {
         this.el.style.setProperty('--mag-x', `${this.x}px`);
         this.el.style.setProperty('--mag-y', `${this.y}px`);
@@ -424,7 +426,6 @@ document.addEventListener('DOMContentLoaded', () => {
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
       }
     }
-
     onMouseLeave() {
       if (this.el.classList.contains('mag-capsule')) {
         this.el.style.setProperty('--mag-x', `0px`);
@@ -435,63 +436,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Initialize Magnetic Elements
-  const magneticEls = document.querySelectorAll('.btn, .logo, .social-links a, .mag-capsule');
-  magneticEls.forEach(el => new Magnetic(el));
+  document.querySelectorAll('.btn, .logo, .social-links a, .mag-capsule').forEach(el => new Magnetic(el));
 
-  // --- 3D Perspective Effects (About & Skills) ---
-  const perspectiveElements = document.querySelectorAll('.profile-perspective-frame, .holographic-skill-card');
-
-  perspectiveElements.forEach(el => {
+  // --- 3D Perspective ---
+  document.querySelectorAll('.holographic-card, .cert-card').forEach(el => {
     el.addEventListener('mousemove', (e) => {
       const rect = el.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
-
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-
-      const rotateX = (y - centerY) / 10;
-      const rotateY = (centerX - x) / 10;
-
+      const rotateX = (y - centerY) / 15;
+      const rotateY = (centerX - x) / 15;
       el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
-
     el.addEventListener('mouseleave', () => {
       el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
     });
   });
 
-  // --- Background Parallax & Scroll Effects ---
+  // --- Parallax & Scroll ---
   const bgShapes = document.querySelectorAll('.shape');
   const titleFills = document.querySelectorAll('.title-fill');
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    const winHeight = window.innerHeight;
-
-    // BG Parallax logic
     bgShapes.forEach((shape, index) => {
       const speed = (index + 1) * 0.1;
       shape.style.transform = `translateY(${scrollY * speed}px)`;
     });
 
-    // Title fill scroll effect
     titleFills.forEach(fill => {
       const rect = fill.getBoundingClientRect();
-      if (rect.top < winHeight && rect.bottom > 0) {
-        const progress = 1 - (rect.top / winHeight);
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const progress = 1 - (rect.top / window.innerHeight);
         const pos = Math.min(Math.max(progress * 100, 0), 100);
         fill.style.backgroundPosition = `${100 - pos}% 0%`;
       }
     });
 
-    // Scroll Progress Bar Logic
     const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
     const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const scrolled = (winScroll / height) * 100;
-    if (scrollBar) {
-      scrollBar.style.width = scrolled + "%";
-    }
+    if (scrollBar) scrollBar.style.width = scrolled + "%";
   });
 });
